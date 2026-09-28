@@ -1,4 +1,5 @@
 """👤 Player Profiles — Individual Analytics & Elo Rankings."""
+# C2W | Core2Web
 from __future__ import annotations
 
 import sys

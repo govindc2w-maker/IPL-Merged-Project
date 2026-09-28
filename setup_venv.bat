@@ -1,4 +1,5 @@
 @echo off
+rem C2W | Core2Web
 setlocal
 cd /d "%~dp0"
 

@@ -1,3 +1,4 @@
+# C2W | Core2Web
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
 $workspaceRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
