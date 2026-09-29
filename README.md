@@ -18,7 +18,7 @@ This workspace contains an IPL analytics and machine-learning system with two co
 
 The two applications use related IPL match and ball-by-ball data but have different responsibilities. The EDA application teaches and exposes the complete analytical process. The prediction application turns engineered historical features into reusable prediction models.
 
-> The directory `pythonmlproject/pythonmlproject/` is a nested duplicate-style project layout containing the source package and pages used by the training application. Use the outer `pythonmlproject/` as the project root when following its documented commands.
+> `pythonmlproject/` contains the application pages, source packages, model artifacts, and training pipeline.
 
 ---
 
@@ -40,7 +40,7 @@ Given the match context and the state of an innings, estimate the final first-in
 
 **Target:** `final_score` or an aggregated `first_inning_total`.
 
-**Implemented in:** `pythonmlproject/pythonmlproject/src/data/features.py`, `src/models/score_predictor.py`, and the EDA backend regression/ensemble services.
+**Implemented in:** `pythonmlproject/src/data/features.py`, `src/models/score_predictor.py`, and the EDA backend regression/ensemble services.
 
 ### Problem Statement 3: Predict the match winner
 
@@ -48,7 +48,7 @@ Given two teams, toss information, venue, season context, historical head-to-hea
 
 **Target:** `team1_won`, a binary value derived from `winner == team1`.
 
-**Implemented in:** `pythonmlproject/pythonmlproject/src/data/features.py` and `src/models/match_winner.py`.
+**Implemented in:** `pythonmlproject/src/data/features.py` and `src/models/match_winner.py`.
 
 ### Problem Statement 4: Predict whether a team successfully defends its total
 
@@ -75,7 +75,7 @@ Player performance is multidimensional. Batsmen can be compared using runs, ball
 
 **Expected output:** Cluster labels, cluster profiles, a two-dimensional PCA projection, and similar-player results.
 
-**Implemented in:** `ipl_prediction_project/backend/services/unsupervised_service.py` and `pythonmlproject/pythonmlproject/train.py`.
+**Implemented in:** `ipl_prediction_project/backend/services/unsupervised_service.py` and `pythonmlproject/train.py`.
 
 ### Problem Statement 7: Explain model predictions and compare competing algorithms
 
@@ -83,7 +83,7 @@ A prediction is more useful when users can compare multiple algorithms and under
 
 **Expected output:** Comparative metric tables, model predictions, coefficient views where available, learning curves, and SHAP-based feature importance.
 
-**Implemented in:** `pythonmlproject/pythonmlproject/src/models/match_winner.py`, `score_predictor.py`, `train.py`, and the Streamlit pages.
+**Implemented in:** `pythonmlproject/src/models/match_winner.py`, `score_predictor.py`, `train.py`, and the Streamlit pages.
 
 ---
 
@@ -403,10 +403,6 @@ Install Python 3.12, open the workspace root (the directory containing this docu
 
 This creates the root `.venv` and installs combined dependencies from the root `requirements.txt`. Project-level requirements files include the shared file for compatibility.
 
-### Streamlit theme
-
-The merged dashboard is launched from the workspace root, so its Streamlit theme is configured in the root `.streamlit/config.toml`. This sets the application to dark mode with the IPL orange accent and dark background colors. The `home.py` page also styles its built-in navigation sidebar to match. Restart Streamlit after changing the theme configuration; configuration files nested inside a subproject do not configure the root-level merged dashboard.
-
 ### EDA and API application
 
 From `ipl_prediction_project/`, run `run.bat both` to start the FastAPI backend and Streamlit frontend. The launcher bootstraps and uses the workspace-level `.venv`.
@@ -458,8 +454,8 @@ For a stronger research-grade system, the next improvements would be:
 - Interactive ensembles: `ipl_prediction_project/backend/services/ensemble_service.py`
 - Player clustering: `ipl_prediction_project/backend/services/unsupervised_service.py`
 - Production training orchestration: `pythonmlproject/train.py`
-- Production features: `pythonmlproject/pythonmlproject/src/data/features.py`
-- Elo ratings: `pythonmlproject/pythonmlproject/src/data/elo.py`
-- Winner models: `pythonmlproject/pythonmlproject/src/models/match_winner.py`
-- Score models: `pythonmlproject/pythonmlproject/src/models/score_predictor.py`
+- Production features: `pythonmlproject/src/data/features.py`
+- Elo ratings: `pythonmlproject/src/data/elo.py`
+- Winner models: `pythonmlproject/src/models/match_winner.py`
+- Score models: `pythonmlproject/src/models/score_predictor.py`
 - Configuration: `pythonmlproject/config.yaml`

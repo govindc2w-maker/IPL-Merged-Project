@@ -1,9 +1,12 @@
-# C2W | Core2Web
 import streamlit as st
 import subprocess
 import sys
 import os
 from pathlib import Path
+
+# IMPLEMENTATION_ROOT = Path(__file__).resolve().parent / "pythonmlproject"
+# if str(IMPLEMENTATION_ROOT) not in sys.path:
+#     sys.path.insert(0, str(IMPLEMENTATION_ROOT))
 
 # 1. Monkey-patch set_page_config FIRST (before anything else)
 # This prevents Streamlit API Exceptions from the sub-pages when they try to call it again.
@@ -54,21 +57,6 @@ def home_page_view():
             radial-gradient(circle at 15% 50%, rgba(255, 107, 0, 0.05) 0%, transparent 50%),
             radial-gradient(circle at 85% 30%, rgba(31, 56, 100, 0.15) 0%, transparent 50%);
         color: #E8EDF5;
-    }
-
-    /* Keep Streamlit's built-in navigation sidebar in the same dark palette. */
-    section[data-testid="stSidebar"],
-    section[data-testid="stSidebar"] > div {
-        background-color: #111827 !important;
-    }
-    section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] a {
-        color: #E8EDF5 !important;
-    }
-    section[data-testid="stSidebar"] button {
-        color: #E8EDF5 !important;
     }
     
     /* Clean up default padding */
@@ -242,7 +230,7 @@ def home_page_view():
         st.write("")
         
         if st.button("Launch Implementation", key="btn_impl"):
-            st.switch_page(r"pythonmlproject\pythonmlproject\app.py")
+            st.switch_page(r"pythonmlproject\app.py")
 
     # Footer
    
@@ -253,13 +241,13 @@ home_page = st.Page(home_page_view, title="Home", icon="🏠", default=True)
 
 learning_page = st.Page(r"ipl_prediction_project\frontend\app.py", title="Learning Module", icon="📚", url_path="learning")
 
-impl_home = st.Page(r"pythonmlproject\pythonmlproject\app.py", title="Implementation Overview", icon="⚙️", url_path="implementation_home")
-impl_history = st.Page(r"pythonmlproject\pythonmlproject\pages\02_history.py", title="History & EDA", icon="📜")
-impl_match = st.Page(r"pythonmlproject\pythonmlproject\pages\03_match_prediction.py", title="Match Prediction", icon="🎯")
-impl_score = st.Page(r"pythonmlproject\pythonmlproject\pages\04_score_prediction.py", title="Score Prediction", icon="📈")
-impl_player = st.Page(r"pythonmlproject\pythonmlproject\pages\06_player_profiles.py", title="Player Analytics", icon="👤")
-impl_team = st.Page(r"pythonmlproject\pythonmlproject\pages\08_team_optimizer.py", title="Team Optimizer", icon="🏆")
-impl_algo = st.Page(r"pythonmlproject\pythonmlproject\pages\09_algo_lab.py", title="Algo Lab", icon="🔬")
+impl_home = st.Page(r"pythonmlproject\app.py", title="Implementation Overview", icon="⚙️", url_path="implementation_home")
+impl_history = st.Page(r"pythonmlproject\pages\02_history.py", title="History & EDA", icon="📜")
+impl_match = st.Page(r"pythonmlproject\pages\03_match_prediction.py", title="Match Prediction", icon="🎯")
+impl_score = st.Page(r"pythonmlproject\pages\04_score_prediction.py", title="Score Prediction", icon="📈")
+impl_player = st.Page(r"pythonmlproject\pages\06_player_profiles.py", title="Player Analytics", icon="👤")
+impl_team = st.Page(r"pythonmlproject\pages\08_team_optimizer.py", title="Team Optimizer", icon="🏆")
+impl_algo = st.Page(r"pythonmlproject\pages\09_algo_lab.py", title="Algo Lab", icon="🔬")
 
 # Group pages into sections in the sidebar
 pg = st.navigation({

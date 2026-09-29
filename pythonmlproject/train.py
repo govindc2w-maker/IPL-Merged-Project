@@ -14,7 +14,6 @@ Steps:
 Usage:
   py train.py
 """
-# C2W | Core2Web
 from __future__ import annotations
 
 import argparse
@@ -181,42 +180,36 @@ def main() -> None:
     # STEP 6: K-Means(k=6) + DBSCAN + PCA → clusters.csv
     # -----------------------------------------------------------------------
     t = _step(6, "KMeans(k=6) + DBSCAN + PCA → clusters.csv")
-    
-    if len(elo_df) >= 6:
-        X_player, player_names = build_player_features(elo_df)
+    X_player, player_names = build_player_features(elo_df)
 
-        # StandardScaler for clustering (K-Means is distance-based)
-        p_scaler = StandardScaler()
-        Xp_scaled = p_scaler.fit_transform(X_player)
+    # StandardScaler for clustering (K-Means is distance-based)
+    p_scaler = StandardScaler()
+    Xp_scaled = p_scaler.fit_transform(X_player)
 
-        km = KMeans(n_clusters=6, random_state=42, n_init=10)
-        km_labels = km.fit_predict(Xp_scaled)
+    km = KMeans(n_clusters=6, random_state=42, n_init=10)
+    km_labels = km.fit_predict(Xp_scaled)
 
-        db = DBSCAN(eps=0.5, min_samples=5)
-        db_labels = db.fit_predict(Xp_scaled)
+    db = DBSCAN(eps=0.5, min_samples=5)
+    db_labels = db.fit_predict(Xp_scaled)
 
-        pca = PCA(n_components=2, random_state=42)
-        pca_coords = pca.fit_transform(Xp_scaled)
+    pca = PCA(n_components=2, random_state=42)
+    pca_coords = pca.fit_transform(Xp_scaled)
 
-        clusters_df = elo_df[["player_name", "elo_rating", "match_count", "pom_count", "win_rate"]].copy()
-        clusters_df["kmeans_cluster"] = km_labels
-        clusters_df["dbscan_cluster"] = db_labels
-        clusters_df["pca1"]           = pca_coords[:, 0]
-        clusters_df["pca2"]           = pca_coords[:, 1]
-        clusters_df["cluster"]        = km_labels
-        clusters_df["dbscan_label"]   = db_labels
-        clusters_df["pc1"]            = pca_coords[:, 0]
-        clusters_df["pc2"]            = pca_coords[:, 1]
-    else:
-        clusters_df = pd.DataFrame(columns=[
-            "player_name", "elo_rating", "match_count", "pom_count", "win_rate",
-            "kmeans_cluster", "dbscan_cluster", "pca1", "pca2",
-            "cluster", "dbscan_label", "pc1", "pc2"
-        ])
-        
+    clusters_df = elo_df[["player_name", "elo_rating", "match_count", "pom_count", "win_rate"]].copy()
+    clusters_df["kmeans_cluster"] = km_labels
+    clusters_df["dbscan_cluster"] = db_labels
+    clusters_df["pca1"]           = pca_coords[:, 0]
+    clusters_df["pca2"]           = pca_coords[:, 1]
+    # Backward-compatible aliases used by earlier versions of the app
+    clusters_df["cluster"]        = km_labels
+    clusters_df["dbscan_label"]   = db_labels
+    clusters_df["pc1"]            = pca_coords[:, 0]
+    clusters_df["pc2"]            = pca_coords[:, 1]
     clusters_path = data_proc / "clusters.csv"
     clusters_df.to_csv(clusters_path, index=False)
     log.info(f"clusters.csv → {clusters_path}  rows={len(clusters_df)}")
+    log.info(f"KMeans cluster sizes: {pd.Series(km_labels).value_counts().sort_index().to_dict()}")
+    log.info(f"DBSCAN outliers (label=-1): {(db_labels == -1).sum()}")
     log.info(f"STEP 6 done in {_elapsed(t)}")
 
     # -----------------------------------------------------------------------

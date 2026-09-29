@@ -1,6 +1,5 @@
 # ==============================================================================
 # IPL ML LAB - SYSTEM FILE
-# C2W | Core2Web
 # ==============================================================================
 # File: ensemble_service.py
 # Path: backend/services/ensemble_service.py

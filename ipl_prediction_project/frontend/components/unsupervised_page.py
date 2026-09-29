@@ -1,4 +1,3 @@
-# C2W | Core2Web
 import streamlit as st
 import pandas as pd
 import plotly.express as px

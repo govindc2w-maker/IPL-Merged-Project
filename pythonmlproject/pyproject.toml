@@ -14,8 +14,8 @@ executionEnvironments = [
   { "root": "." }
 ]
 extraPaths = [
-  "..",
-  "../.venv/Lib/site-packages"
+    "..",
+    "../.venv/Lib/site-packages"
 ]
 reportMissingImports = false
 reportMissingModuleSource = false

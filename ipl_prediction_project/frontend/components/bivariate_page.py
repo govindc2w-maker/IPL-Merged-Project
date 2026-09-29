@@ -1,6 +1,5 @@
 # ==============================================================================
 # IPL ML LAB - SYSTEM FILE
-# C2W | Core2Web
 # ==============================================================================
 # File: bivariate_page.py
 # Path: frontend/components/bivariate_page.py

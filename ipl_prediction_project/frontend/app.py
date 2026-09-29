@@ -1,5 +1,4 @@
 
-# C2W | Core2Web
 import streamlit as st
 st.set_page_config(
     page_title="IPL Project",

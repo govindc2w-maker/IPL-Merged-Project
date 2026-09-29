@@ -1,6 +1,5 @@
 # ==============================================================================
 # IPL ML LAB - SYSTEM FILE
-# C2W | Core2Web
 # ==============================================================================
 # File: unsupervised_service.py
 # Path: backend/services/unsupervised_service.py
